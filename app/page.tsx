@@ -165,7 +165,7 @@ export default function Portfolio() {
                         </h3>
                         <p className="text-blue-600 font-semibold">SENA - Centro de Servicios Financieros</p>
                       </div>
-                      <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 w-fit">2023 - 2025</Badge>
+                      <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 w-fit">Abril 2024 - Diciembre 2025</Badge>
                     </div>
                     <p className="text-slate-700 mb-4 text-pretty">
                       Formación técnica especializada en desarrollo de software con énfasis en tecnologías
@@ -175,7 +175,8 @@ export default function Portfolio() {
                     <div className="flex flex-wrap gap-2">
                       <Badge className="bg-green-100 text-green-800">Java</Badge>
                       <Badge className="bg-orange-100 text-orange-800">PHP</Badge>
-                      <Badge className="bg-red-100 text-red-800">Jakarta EE</Badge>
+                      <Badge className="bg-blue-100 text-orange-800">Laravel</Badge>
+                      <Badge className="bg-red-100 text-red-800">DenoJS</Badge>
                       <Badge className="bg-cyan-100 text-cyan-800">Base de Datos</Badge>
                       <Badge className="bg-purple-100 text-purple-800">Metodologías Ágiles</Badge>
                     </div>
