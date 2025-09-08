@@ -19,6 +19,7 @@ import {
   Settings,
   Smartphone,
   Globe,
+  MessageCircle,
 } from "lucide-react"
 import Image from "next/image"
 
@@ -67,6 +68,20 @@ export default function Portfolio() {
                 >
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
+                </a>
+              </Button>
+              <Button
+                asChild
+                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg border-0"
+              >
+                <a
+                  href="https://wa.me/573154625105"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white no-underline"
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  WhatsApp
                 </a>
               </Button>
               <Button
@@ -884,6 +899,16 @@ export default function Portfolio() {
                 >
                   <Github className="w-4 h-4 mr-2" />
                   GitHub
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                asChild
+                className="border-green-400 text-green-400 hover:bg-green-400 hover:text-white bg-transparent"
+              >
+                <a href="https://wa.me/573154625105" target="_blank" rel="noopener noreferrer" className="no-underline">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  WhatsApp
                 </a>
               </Button>
               <Button
