@@ -1,6 +1,5 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
   Github,
   Linkedin,
@@ -20,914 +19,784 @@ import {
   Smartphone,
   Globe,
   MessageCircle,
+  ArrowUpRight,
+  MapPin,
+  Terminal,
+  Cloud,
+  type LucideIcon,
 } from "lucide-react"
 import Image from "next/image"
 
+/* ---------------------------------------------------------------- *
+ * Small, reusable building blocks — one disciplined design system
+ * instead of per-element rainbow styling.
+ * ---------------------------------------------------------------- */
+
+function Tag({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 font-mono text-xs text-zinc-400">
+      {children}
+    </span>
+  )
+}
+
+function Feature({
+  icon: Icon,
+  title,
+  desc,
+}: {
+  icon: LucideIcon
+  title: string
+  desc: string
+}) {
+  return (
+    <div className="group flex items-start gap-3 rounded-lg border border-white/[0.06] bg-white/[0.02] p-4 transition-colors hover:border-emerald-400/30 hover:bg-emerald-400/[0.03]">
+      <Icon className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+      <div>
+        <h4 className="text-sm font-medium text-zinc-100">{title}</h4>
+        <p className="text-xs text-zinc-500">{desc}</p>
+      </div>
+    </div>
+  )
+}
+
+/* App-window chrome around every screenshot, so the gallery reads
+ * as one product rather than a pile of random images. */
+function Frame({
+  src,
+  alt,
+  caption,
+  portrait = false,
+}: {
+  src: string
+  alt: string
+  caption: string
+  portrait?: boolean
+}) {
+  return (
+    <figure className="space-y-3">
+      <div
+        className={`overflow-hidden rounded-xl border border-white/10 bg-zinc-900/60 shadow-2xl shadow-black/40 ${
+          portrait ? "mx-auto max-w-[16rem]" : ""
+        }`}
+      >
+        <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/[0.03] px-3 py-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-red-400/60" />
+          <span className="h-2.5 w-2.5 rounded-full bg-amber-400/60" />
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/60" />
+        </div>
+        <Image
+          src={src || "/placeholder.svg"}
+          alt={alt}
+          width={portrait ? 320 : 640}
+          height={portrait ? 480 : 420}
+          className="w-full"
+        />
+      </div>
+      <figcaption className="text-center text-xs text-zinc-500">{caption}</figcaption>
+    </figure>
+  )
+}
+
+function SectionHeading({
+  index,
+  kicker,
+  title,
+  subtitle,
+}: {
+  index: string
+  kicker: string
+  title: string
+  subtitle: string
+}) {
+  return (
+    <div className="mb-12">
+      <p className="font-mono text-sm text-emerald-400">
+        {index} <span className="text-zinc-600">/</span> {kicker}
+      </p>
+      <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">{title}</h2>
+      <p className="mt-3 max-w-2xl text-zinc-400">{subtitle}</p>
+    </div>
+  )
+}
+
+const navLinks = [
+  { href: "#experiencia", label: "Experiencia" },
+  { href: "#proyectos", label: "Proyectos" },
+  { href: "#skills", label: "Skills" },
+  { href: "#contacto", label: "Contacto" },
+]
+
 export default function Portfolio() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-8">
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/480502099_122211395426232005_4687904367962952875_n.jpg-I7oNAL6PyNA8mYlg1dy5yjGwvLj244.jpeg"
-              alt="Gabriel Barrantes"
-              width={150}
-              height={150}
-              className="rounded-full mx-auto mb-6 border-4 border-blue-500/30 shadow-xl"
-            />
-            <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 mb-4 text-balance">Gabriel Barrantes</h1>
-            <p className="text-xl text-slate-600 mb-6 text-pretty">Aprendiz en Análisis y Desarrollo de Software</p>
-            <p className="text-lg text-slate-700 mb-8 max-w-2xl mx-auto text-pretty">
-              Especializado en desarrollo de aplicaciones con{" "}
-              <span className="text-blue-600 font-semibold">Java Spring Framework</span> y arquitectura de software.
-              Enfocado en crear soluciones eficientes, escalables y robustas con tecnologías empresariales.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button
-                asChild
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg border-0"
+    <div className="min-h-screen bg-background">
+      {/* ----------------------------------------------------------- */}
+      {/* Nav */}
+      {/* ----------------------------------------------------------- */}
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.06] bg-background/70 backdrop-blur-xl">
+        <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <a href="#top" className="flex items-center gap-2 font-mono text-sm font-semibold text-zinc-100">
+            <Terminal className="h-4 w-4 text-emerald-400" />
+            barrantes<span className="text-emerald-400">.dev</span>
+          </a>
+          <div className="hidden items-center gap-1 md:flex">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="rounded-md px-3 py-2 text-sm text-zinc-400 transition-colors hover:text-zinc-100"
               >
-                <a
-                  href="https://co.linkedin.com/in/barrantesv/es"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white no-underline"
+                {l.label}
+              </a>
+            ))}
+          </div>
+          <Button
+            asChild
+            size="sm"
+            className="bg-emerald-400 font-medium text-emerald-950 hover:bg-emerald-300"
+          >
+            <a href="https://wa.me/573154625105" target="_blank" rel="noopener noreferrer">
+              Hablemos
+            </a>
+          </Button>
+        </nav>
+      </header>
+
+      {/* ----------------------------------------------------------- */}
+      {/* Hero */}
+      {/* ----------------------------------------------------------- */}
+      <section id="top" className="relative overflow-hidden">
+        {/* texture + glow */}
+        <div className="bg-dotgrid pointer-events-none absolute inset-0" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />
+
+        <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-36 sm:px-6 lg:px-8 lg:pt-44">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 font-mono text-xs text-emerald-300">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                </span>
+                Disponible para proyectos
+              </span>
+
+              <h1 className="mt-6 text-5xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
+                Gabriel Barrantes
+              </h1>
+
+              <p className="mt-4 font-mono text-lg text-zinc-400">
+                <span className="text-emerald-400">~/</span> backend &amp; devsecops
+                <span className="animate-caret ml-0.5 text-emerald-400">_</span>
+              </p>
+
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">
+                Tecnólogo en Análisis y Desarrollo de Software. Construyo backends robustos y escalables con{" "}
+                <span className="font-medium text-zinc-100">Java &amp; Spring</span> y opero infraestructura en la
+                nube aplicando arquitectura hexagonal, automatización y prácticas DevSecOps.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  className="bg-emerald-400 font-medium text-emerald-950 hover:bg-emerald-300"
                 >
-                  <Linkedin className="w-4 h-4 mr-2" />
-                  LinkedIn
-                </a>
-              </Button>
-              <Button variant="outline" asChild className="border-blue-200 hover:bg-blue-50 bg-white/80 text-slate-700">
-                <a
-                  href="https://github.com/Gabriel3555"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-700 no-underline"
+                  <a href="#proyectos">
+                    Ver proyectos
+                    <ArrowUpRight className="ml-1.5 h-4 w-4" />
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06] hover:text-white"
                 >
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
-                </a>
-              </Button>
-              <Button
-                asChild
-                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white shadow-lg border-0"
-              >
-                <a
-                  href="https://wa.me/573154625105"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white no-underline"
+                  <a href="https://github.com/Gabriel3555" target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-1.5 h-4 w-4" />
+                    GitHub
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06] hover:text-white"
                 >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  WhatsApp
-                </a>
-              </Button>
-              <Button
-                variant="outline"
-                asChild
-                className="border-purple-200 hover:bg-purple-50 bg-white/80 text-slate-700"
-              >
-                <a href="mailto:gabriel_barrantes@soy.sena.edu.co" className="text-slate-700 no-underline">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Contacto
-                </a>
-              </Button>
+                  <a href="https://co.linkedin.com/in/barrantesv/es" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="mr-1.5 h-4 w-4" />
+                    LinkedIn
+                  </a>
+                </Button>
+              </div>
+
+              <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-white/[0.06] pt-8">
+                <div>
+                  <dt className="font-mono text-xs text-zinc-500">Foco</dt>
+                  <dd className="mt-1 text-sm font-medium text-zinc-200">Backend &amp; Cloud</dd>
+                </div>
+                <div>
+                  <dt className="font-mono text-xs text-zinc-500">Stack</dt>
+                  <dd className="mt-1 text-sm font-medium text-zinc-200">Spring Boot</dd>
+                </div>
+                <div>
+                  <dt className="flex items-center gap-1 font-mono text-xs text-zinc-500">Ubicación</dt>
+                  <dd className="mt-1 flex items-center gap-1 text-sm font-medium text-zinc-200">
+                    <MapPin className="h-3.5 w-3.5 text-emerald-400" /> Boyacá, CO
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            {/* Portrait */}
+            <div className="relative mx-auto lg:mx-0">
+              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-emerald-500/20 to-transparent blur-2xl" />
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/60 p-2">
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/480502099_122211395426232005_4687904367962952875_n.jpg-I7oNAL6PyNA8mYlg1dy5yjGwvLj244.jpeg"
+                  alt="Gabriel Barrantes"
+                  width={360}
+                  height={360}
+                  className="h-72 w-72 rounded-xl object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-3 -right-3 rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 font-mono text-xs text-zinc-300 shadow-xl">
+                <span className="text-emerald-400">$</span> spring boot run
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Experience Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Experiencia</h2>
-            <p className="text-lg text-slate-600">Mi trayectoria en desarrollo de software</p>
+      {/* ----------------------------------------------------------- */}
+      {/* Experience */}
+      {/* ----------------------------------------------------------- */}
+      <section id="experiencia" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+        <SectionHeading
+          index="01"
+          kicker="Experiencia"
+          title="Trayectoria"
+          subtitle="Dónde he aplicado y afilado mis habilidades como desarrollador de software."
+        />
+
+        <div className="relative space-y-10 border-l border-white/[0.08] pl-8">
+          {/* Indra Group */}
+          <div className="relative">
+            <span className="absolute -left-[2.55rem] top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-400/30 bg-background">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+            </span>
+            <div className="rounded-xl border border-white/[0.06] bg-card p-6 transition-colors hover:border-white/[0.12]">
+              <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
+                <div>
+                  <h3 className="text-lg font-semibold text-zinc-50">Soporte de Aplicaciones (Prácticas)</h3>
+                  <p className="text-sm text-emerald-400">Indra Group · Remoto</p>
+                </div>
+                <span className="w-fit font-mono text-xs text-zinc-500">Dic 2025 — Jun 2026</span>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Gestión integral de incidentes y cumplimiento de SLAs sobre aplicaciones en producción. Soporte a
+                pipelines CI/CD en Azure DevOps y despliegues GitOps sobre clústeres ARO (Azure RedHat OpenShift),
+                gestión de vulnerabilidades (Trivy, SonarQube, Tenable, Mendbolt), administración segura de identidades
+                y secretos con Azure Key Vault, automatización en Python y ejecución de planes de recuperación
+                tecnológica (PRT/DRP).
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {["Azure DevOps", "ARO (OpenShift)", "GitOps", "DevSecOps", "Azure Key Vault", "Python", "CI/CD"].map(
+                  (t) => (
+                    <Tag key={t}>{t}</Tag>
+                  ),
+                )}
+              </div>
+            </div>
           </div>
+
+          {/* SENNOVA */}
+          <div className="relative">
+            <span className="absolute -left-[2.55rem] top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-emerald-400/30 bg-background">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            <div className="rounded-xl border border-white/[0.06] bg-card p-6 transition-colors hover:border-white/[0.12]">
+              <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
+                <div>
+                  <h3 className="text-lg font-semibold text-zinc-50">Desarrollador de Software (Monitor)</h3>
+                  <p className="text-sm text-emerald-400">SENA SENNOVA · Sogamoso, Boyacá</p>
+                </div>
+                <span className="w-fit font-mono text-xs text-zinc-500">Jul 2024 — Nov 2025</span>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Desarrollo de soluciones backend escalables con Java y el ecosistema Spring (Boot, MVC, Data JPA) bajo
+                arquitectura hexagonal. Diseño y exposición de APIs RESTful documentadas con Swagger, gestión y
+                optimización de datos en PostgreSQL, y despliegue contenerizado con Docker sobre servidores VPS.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {["Spring Boot", "Arquitectura Hexagonal", "Spring Data JPA", "PostgreSQL", "Swagger", "Docker", "VPS"].map(
+                  (t) => (
+                    <Tag key={t}>{t}</Tag>
+                  ),
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Educación SENA */}
+          <div className="relative">
+            <span className="absolute -left-[2.55rem] top-1.5 flex h-5 w-5 items-center justify-center rounded-full border border-white/15 bg-background">
+              <span className="h-2 w-2 rounded-full bg-zinc-500" />
+            </span>
+            <div className="rounded-xl border border-white/[0.06] bg-card p-6 transition-colors hover:border-white/[0.12]">
+              <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
+                <div>
+                  <h3 className="text-lg font-semibold text-zinc-50">Tecnólogo en Análisis y Desarrollo de Software</h3>
+                  <p className="text-sm text-emerald-400">SENA · Sogamoso, Boyacá</p>
+                </div>
+                <span className="w-fit font-mono text-xs text-zinc-500">Abr 2024 — Jun 2026</span>
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">
+                Formación integral orientada al diseño, desarrollo, despliegue y mantenimiento de aplicaciones robustas,
+                con énfasis en arquitecturas backend escalables, metodologías ágiles y buenas prácticas de programación.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {["Java", "Spring", "PostgreSQL", "Docker", "Bases de Datos", "Metodologías Ágiles"].map((t) => (
+                  <Tag key={t}>{t}</Tag>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ----------------------------------------------------------- */}
+      {/* Projects */}
+      {/* ----------------------------------------------------------- */}
+      <section id="proyectos" className="border-y border-white/[0.06] bg-white/[0.015]">
+        <div className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+          <SectionHeading
+            index="02"
+            kicker="Proyectos"
+            title="Trabajo seleccionado"
+            subtitle="Sistemas reales construidos de extremo a extremo, con foco en el backend."
+          />
 
           <div className="space-y-8">
-            {/* SENA SENNOVA Experience */}
-            <Card className="border-green-200/50 shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex flex-col md:flex-row md:items-start gap-6">
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                      <Code className="w-8 h-8 text-white" />
-                    </div>
-                  </div>
-                  <div className="flex-grow">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-900">Desarrollador de Software (Monitor)</h3>
-                        <p className="text-green-600 font-semibold">SENA SENNOVA</p>
-                        <p className="text-sm text-slate-600">Sogamoso, Boyacá</p>
-                      </div>
-                      <Badge className="bg-green-100 text-green-800 hover:bg-green-200 w-fit">
-                        Julio 2024 - Julio 2025
-                      </Badge>
-                    </div>
-                    <p className="text-slate-700 mb-4 text-pretty">
-                      Apoyo en el análisis, diseño, implementación y prueba de soluciones de software según los
-                      requerimientos funcionales y no funcionales. Colaboración con equipos de desarrollo en la
-                      elaboración de documentación técnica y manuales de usuario. Participación en el mantenimiento y
-                      mejora de aplicaciones existentes, contribuyendo a la gestión y manipulación de datos en entornos
-                      de desarrollo.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge className="bg-blue-100 text-blue-800">Spring Boot</Badge>
-                      <Badge className="bg-green-100 text-green-800">Arquitectura Hexagonal</Badge>
-                      <Badge className="bg-purple-100 text-purple-800">Spring Security</Badge>
-                      <Badge className="bg-orange-100 text-orange-800">PostgreSQL</Badge>
-                      <Badge className="bg-red-100 text-red-800">JWT</Badge>
-                      <Badge className="bg-cyan-100 text-cyan-800">Control de Versiones</Badge>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* SENA Student Experience */}
-            <Card className="border-blue-200/50 shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex flex-col md:flex-row md:items-start gap-6">
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                      <BookOpen className="w-8 h-8 text-white" />
-                    </div>
-                  </div>
-                  <div className="flex-grow">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-slate-900">
-                          Aprendiz en Análisis y Desarrollo de Software
-                        </h3>
-                        <p className="text-blue-600 font-semibold">SENA - Centro de Servicios Financieros</p>
-                      </div>
-                      <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 w-fit">Abril 2024 - Diciembre 2025</Badge>
-                    </div>
-                    <p className="text-slate-700 mb-4 text-pretty">
-                      Formación técnica especializada en desarrollo de software con énfasis en tecnologías
-                      empresariales. Desarrollo de proyectos prácticos aplicando metodologías ágiles y buenas prácticas
-                      de programación.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge className="bg-green-100 text-green-800">Java</Badge>
-                      <Badge className="bg-orange-100 text-orange-800">PHP</Badge>
-                      <Badge className="bg-blue-100 text-orange-800">Laravel</Badge>
-                      <Badge className="bg-red-100 text-red-800">DenoJS</Badge>
-                      <Badge className="bg-cyan-100 text-cyan-800">Base de Datos</Badge>
-                      <Badge className="bg-purple-100 text-purple-800">Metodologías Ágiles</Badge>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white/50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Proyectos Destacados</h2>
-            <p className="text-lg text-slate-600">Aplicaciones web desarrolladas con diferentes tecnologías</p>
-          </div>
-
-          <div className="space-y-12">
-            {/* Project 1: SENA TecnoParque */}
-            <Card className="overflow-hidden border-green-200/50 shadow-xl">
-              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50">
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
-                  <div>
-                    <CardTitle className="text-2xl mb-2 text-slate-900">Sistema de Gestión Industrial</CardTitle>
-                    <CardDescription className="text-base">
-                      Proyecto ejecutado en el marco de la Red TecnoParque SENA (Nodo Boyacá), en colaboración con una
-                      empresa del sector agropecuario. Mi rol fue desarrollador backend, implementando Spring Boot con
-                      arquitectura hexagonal.
-                    </CardDescription>
-                  </div>
-                  <Badge className="bg-green-100 text-green-800 hover:bg-green-200">SENA TecnoParque</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                {/* Project Screenshots */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.25.58-MrNOEQQwQhukOIOSv7IEUkJHgKd119.png"
-                      alt="Gestión de Máquinas"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Sistema web de gestión de maquinaria industrial
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="/images/equipment-status-panel.png"
-                      alt="Panel de Control - Estado de Equipos"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Panel de control con estado de equipos y métricas en tiempo real
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="/images/create-work-order-modal.png"
-                      alt="Crear Orden de Trabajo"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Modal para crear órdenes de trabajo con información detallada de máquinas
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="/images/user-management-page.png"
-                      alt="Gestión de Usuarios"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Sistema de gestión de usuarios con roles y permisos administrativos
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.48.58-1LBHpwLe7ttgmY4b6LuPMwqVwwYsFx.png"
-                      alt="Panel de Control Móvil"
-                      width={300}
-                      height={450}
-                      className="rounded-lg border shadow-lg w-full max-w-xs mx-auto hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">Aplicación móvil para auditorías técnicas</p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.49.13-tsMbS4RByno8uQ7qX1O3WErDHKkEMD.png"
-                      alt="Control de Equipos"
-                      width={300}
-                      height={450}
-                      className="rounded-lg border shadow-lg w-full max-w-xs mx-auto hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">Evaluación técnica de equipos industriales</p>
-                  </div>
-                </div>
-
-                {/* Features Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-                    <Settings className="w-8 h-8 text-blue-600" />
-                    <div>
-                      <h4 className="font-semibold text-blue-900">Gestión de Maquinaria</h4>
-                      <p className="text-sm text-blue-700">Control integral de equipos</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
-                    <Shield className="w-8 h-8 text-green-600" />
-                    <div>
-                      <h4 className="font-semibold text-green-900">Auditorías Técnicas</h4>
-                      <p className="text-sm text-green-700">Evaluación y seguimiento</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-                    <Users className="w-8 h-8 text-purple-600" />
-                    <div>
-                      <h4 className="font-semibold text-purple-900">Gestión de Usuarios</h4>
-                      <p className="text-sm text-purple-700">Roles y permisos</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
-                    <Smartphone className="w-8 h-8 text-orange-600" />
-                    <div>
-                      <h4 className="font-semibold text-orange-900">App Móvil</h4>
-                      <p className="text-sm text-orange-700">Kotlin nativo</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg border border-teal-200">
-                    <Globe className="w-8 h-8 text-teal-600" />
-                    <div>
-                      <h4 className="font-semibold text-teal-900">App Web</h4>
-                      <p className="text-sm text-teal-700">Svelte frontend</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200">
-                    <Zap className="w-8 h-8 text-red-600" />
-                    <div>
-                      <h4 className="font-semibold text-red-900">Notificaciones</h4>
-                      <p className="text-sm text-red-700">Sistema en tiempo real</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Technologies Used */}
+            {/* Project 1 — TecnoParque */}
+            <article className="overflow-hidden rounded-2xl border border-white/[0.08] bg-card">
+              <div className="flex flex-col justify-between gap-4 border-b border-white/[0.06] p-6 sm:flex-row sm:items-start">
                 <div>
-                  <h4 className="text-lg font-semibold mb-4 text-slate-900">
-                    Tecnologías Backend (Mi Responsabilidad)
-                  </h4>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">Spring Boot</Badge>
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">Arquitectura Hexagonal</Badge>
-                    <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">Spring Security</Badge>
-                    <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">JWT</Badge>
-                    <Badge className="bg-cyan-100 text-cyan-800 hover:bg-cyan-200">PostgreSQL</Badge>
-                    <Badge className="bg-red-100 text-red-800 hover:bg-red-200">Flux (Notificaciones)</Badge>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-2xl font-semibold text-zinc-50">Sistema de Gestión Industrial</h3>
+                    <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">
+                      TecnoParque
+                    </Badge>
+                    <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">Completado</Badge>
                   </div>
-                  <h4 className="text-lg font-semibold mb-4 text-slate-900">Tecnologías Frontend (Equipo)</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Svelte (Web)</Badge>
-                    <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-200">Kotlin (Móvil)</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Project 2: Finanzas Personales */}
-            <Card className="overflow-hidden border-blue-200/50 shadow-xl">
-              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
-                  <div>
-                    <CardTitle className="text-2xl mb-2 text-slate-900">Sistema de Finanzas Personales</CardTitle>
-                    <CardDescription className="text-base">
-                      Aplicación web completa desarrollada en PHP con arquitectura MVC para la gestión integral de
-                      finanzas personales
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href="https://github.com/Gabriel3555/FinanzasPersonales"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github className="w-4 h-4 mr-2" />
-                        Código
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                {/* Project Screenshots */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2002.54.45-iNJzchgampTWCrASOXcJ1hTZpE7Gkt.png"
-                      alt="Dashboard de Finanzas Personales"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Dashboard principal con métricas financieras y gráficos interactivos
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2002.55.04-5H9VO0iauKEpZBbxtYiGhTICkJIhm8.png"
-                      alt="Reportes Financieros"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Sistema de reportes con exportación a Excel, PDF y CSV
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2002.55.22-d4nGPv81sCkR62V23ekiDO9vUmkrnq.png"
-                      alt="Gestión de Categorías"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">Gestión de categorías con filtros y paginación</p>
-                  </div>
-                </div>
-
-                {/* Features Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
-                    <Users className="w-8 h-8 text-green-600" />
-                    <div>
-                      <h4 className="font-semibold text-green-900">Gestión de Usuarios</h4>
-                      <p className="text-sm text-green-700">Registro y autenticación</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-                    <Database className="w-8 h-8 text-blue-600" />
-                    <div>
-                      <h4 className="font-semibold text-blue-900">Base de Datos</h4>
-                      <p className="text-sm text-blue-700">Diseño relacional completo</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-                    <BarChart3 className="w-8 h-8 text-purple-600" />
-                    <div>
-                      <h4 className="font-semibold text-purple-900">Reportes</h4>
-                      <p className="text-sm text-purple-700">Análisis y visualización</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
-                    <Code className="w-8 h-8 text-orange-600" />
-                    <div>
-                      <h4 className="font-semibold text-orange-900">Arquitectura MVC</h4>
-                      <p className="text-sm text-orange-700">Código organizado y escalable</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200">
-                    <Shield className="w-8 h-8 text-red-600" />
-                    <div>
-                      <h4 className="font-semibold text-red-900">Seguridad</h4>
-                      <p className="text-sm text-red-700">Validación y protección</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg border border-teal-200">
-                    <FileText className="w-8 h-8 text-teal-600" />
-                    <div>
-                      <h4 className="font-semibold text-teal-900">Exportación</h4>
-                      <p className="text-sm text-teal-700">Múltiples formatos</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Database Schema */}
-                <div className="mb-8">
-                  <h4 className="text-lg font-semibold mb-4 text-slate-900">Diseño de Base de Datos</h4>
-                  <Image
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-08%20at%2003.06.02-z2QLxQVHmk7085g81Si5nzNG7BqAve.jpeg"
-                    alt="Diagrama de Base de Datos"
-                    width={800}
-                    height={600}
-                    className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                  />
-                  <p className="text-sm text-slate-600 mt-2">
-                    Esquema relacional con 7 tablas principales: usuarios, cuentas, categorías, transacciones,
-                    presupuestos, movimientos y exportaciones
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
+                    Proyecto de la Red TecnoParque SENA (Nodo Boyacá) con una empresa del sector agropecuario. Rol de
+                    desarrollador backend, implementando Spring Boot con arquitectura hexagonal.
                   </p>
                 </div>
+              </div>
 
-                {/* Technologies Used */}
-                <div>
-                  <h4 className="text-lg font-semibold mb-4 text-slate-900">Tecnologías Utilizadas</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">PHP</Badge>
-                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">MySQL</Badge>
-                    <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">MVC Architecture</Badge>
-                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">JavaScript</Badge>
-                    <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">HTML5</Badge>
-                    <Badge className="bg-pink-100 text-pink-800 hover:bg-pink-200">CSS3</Badge>
-                    <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-200">Chart.js</Badge>
-                    <Badge className="bg-teal-100 text-teal-800 hover:bg-teal-200">Bootstrap</Badge>
-                  </div>
+              <div className="p-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.25.58-MrNOEQQwQhukOIOSv7IEUkJHgKd119.png"
+                    alt="Gestión de Máquinas"
+                    caption="Gestión de maquinaria industrial"
+                  />
+                  <Frame
+                    src="/images/equipment-status-panel.png"
+                    alt="Panel de Control"
+                    caption="Estado de equipos y métricas en tiempo real"
+                  />
+                  <Frame
+                    src="/images/create-work-order-modal.png"
+                    alt="Crear Orden de Trabajo"
+                    caption="Creación de órdenes de trabajo"
+                  />
+                  <Frame
+                    src="/images/user-management-page.png"
+                    alt="Gestión de Usuarios"
+                    caption="Usuarios con roles y permisos"
+                  />
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.48.58-1LBHpwLe7ttgmY4b6LuPMwqVwwYsFx.png"
+                    alt="Panel Móvil"
+                    caption="App móvil para auditorías técnicas"
+                    portrait
+                  />
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.49.13-tsMbS4RByno8uQ7qX1O3WErDHKkEMD.png"
+                    alt="Control de Equipos"
+                    caption="Evaluación técnica de equipos"
+                    portrait
+                  />
                 </div>
-              </CardContent>
-            </Card>
 
-            {/* Project 3: DuitamaBiblioteca */}
-            <Card className="overflow-hidden border-green-200/50 shadow-xl">
-              <CardHeader className="bg-gradient-to-r from-green-50 to-teal-50">
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <Feature icon={Settings} title="Gestión de Maquinaria" desc="Control integral de equipos" />
+                  <Feature icon={Shield} title="Auditorías Técnicas" desc="Evaluación y seguimiento" />
+                  <Feature icon={Users} title="Gestión de Usuarios" desc="Roles y permisos" />
+                  <Feature icon={Smartphone} title="App Móvil" desc="Kotlin nativo" />
+                  <Feature icon={Globe} title="App Web" desc="Frontend en Svelte" />
+                  <Feature icon={Zap} title="Notificaciones" desc="Eventos en tiempo real" />
+                </div>
+
+                <div className="mt-8 space-y-4">
                   <div>
-                    <CardTitle className="text-2xl mb-2 text-slate-900">Sistema de Biblioteca Municipal</CardTitle>
-                    <CardDescription className="text-base">
-                      Aplicación web desarrollada con Jakarta EE 11 para la gestión integral de bibliotecas, incluyendo
-                      catálogo de libros y control de préstamos
-                    </CardDescription>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" asChild>
-                      <a
-                        href="https://github.com/Gabriel3555/DuitamaBiblioteca"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github className="w-4 h-4 mr-2" />
-                        Código
-                      </a>
-                    </Button>
-                    <Button
-                      size="sm"
-                      className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white"
-                      asChild
-                    >
-                      <a href="https://duitamabiblioteca.onrender.com" target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Ver Demo
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                {/* Project Screenshots */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2003.23.48-0icuuqmqs7nfZFkAOS2IHY159lagCx.png"
-                      alt="Homepage Biblioteca Municipal"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Página principal con acceso a gestión de libros y préstamos
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2003.24.30-iB2fGy7RBF1fvWaSk3LZOsU1FZw8vG.png"
-                      alt="Dashboard Biblioteca"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Dashboard con acciones rápidas y módulos principales
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2003.24.11-MZzyaXiTXjs6R95m6MbaNZfyWekpdp.png"
-                      alt="Catálogo de Libros"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Catálogo completo con filtros avanzados y exportación
-                    </p>
-                  </div>
-                </div>
-
-                {/* Features Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-                    <BookOpen className="w-8 h-8 text-blue-600" />
-                    <div>
-                      <h4 className="font-semibold text-blue-900">Gestión de Libros</h4>
-                      <p className="text-sm text-blue-700">CRUD completo del catálogo</p>
+                    <p className="mb-2 font-mono text-xs uppercase tracking-wide text-emerald-400">Backend · mi rol</p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Spring Boot", "Arquitectura Hexagonal", "Spring Security", "JWT", "PostgreSQL", "Flux"].map(
+                        (t) => (
+                          <Tag key={t}>{t}</Tag>
+                        ),
+                      )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
-                    <Calendar className="w-8 h-8 text-green-600" />
-                    <div>
-                      <h4 className="font-semibold text-green-900">Control de Préstamos</h4>
-                      <p className="text-sm text-green-700">Registro y seguimiento</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-                    <Search className="w-8 h-8 text-purple-600" />
-                    <div>
-                      <h4 className="font-semibold text-purple-900">Filtros Avanzados</h4>
-                      <p className="text-sm text-purple-700">Por autor, título e ISBN</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
-                    <Users className="w-8 h-8 text-orange-600" />
-                    <div>
-                      <h4 className="font-semibold text-orange-900">Gestión de Usuarios</h4>
-                      <p className="text-sm text-orange-700">Administración de lectores</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg border border-teal-200">
-                    <FileText className="w-8 h-8 text-teal-600" />
-                    <div>
-                      <h4 className="font-semibold text-teal-900">Exportación</h4>
-                      <p className="text-sm text-teal-700">Excel e impresión</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200">
-                    <Code className="w-8 h-8 text-red-600" />
-                    <div>
-                      <h4 className="font-semibold text-red-900">Jakarta EE 11</h4>
-                      <p className="text-sm text-red-700">Arquitectura empresarial</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Technologies Used */}
-                <div>
-                  <h4 className="text-lg font-semibold mb-4 text-slate-900">Tecnologías Utilizadas</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-red-100 text-red-800 hover:bg-red-200">Jakarta EE 11</Badge>
-                    <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">Apache Tomcat 11</Badge>
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">Maven</Badge>
-                    <Badge className="bg-cyan-100 text-cyan-800 hover:bg-cyan-200">Docker</Badge>
-                    <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">WAR Deployment</Badge>
-                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">HTML5</Badge>
-                    <Badge className="bg-pink-100 text-pink-800 hover:bg-pink-200">CSS3</Badge>
-                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">JavaScript</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Project 4: SGDIS */}
-            <Card className="overflow-hidden border-amber-200/50 shadow-xl">
-              <CardHeader className="bg-gradient-to-r from-amber-50 to-yellow-50">
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                   <div>
-                    <CardTitle className="text-2xl mb-2 text-slate-900">
-                      SGDIS - Sistema de Gestión de Inventario SENA
-                    </CardTitle>
-                    <CardDescription className="text-base">
-                      Sistema estructurado para mejorar la gestión de inventario de SENA, reduciendo errores, mejorando
-                      la eficiencia para mejorar la gestión de inventario de SENA, reduciendo errores, mejorando la
-                      eficiencia y garantizando transparencia en el control de recursos. Proporciona mejor seguimiento,
-                      generación de informes y toma de decisiones para optimizar las operaciones diarias.
-                    </CardDescription>
-                  </div>
-                  <Badge className="bg-amber-100 text-amber-800 hover:bg-amber-200">En Desarrollo</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-6">
-                {/* Project Screenshots */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  <div className="space-y-4">
-                    <Image
-                      src="/images/sgdis-main-dashboard.png"
-                      alt="Dashboard Principal SGDIS"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Dashboard principal con métricas clave y estadísticas del inventario
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="/images/sgdis-inventories-dashboard.png"
-                      alt="Gestión de Inventarios"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Gestión de inventarios por ubicación con métricas detalladas
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="/images/sgdis-reports-statistics.png"
-                      alt="Reportes y Estadísticas"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Sistema de reportes avanzados con filtros y exportación de datos
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <Image
-                      src="/images/sgdis-item-verification.png"
-                      alt="Verificación de Items"
-                      width={600}
-                      height={400}
-                      className="rounded-lg border shadow-lg w-full hover:shadow-xl transition-shadow"
-                    />
-                    <p className="text-sm text-slate-600 text-center">
-                      Verificación de items con búsqueda por placa y código de barras
-                    </p>
+                    <p className="mb-2 font-mono text-xs uppercase tracking-wide text-zinc-500">Frontend · equipo</p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Svelte (Web)", "Kotlin (Móvil)"].map((t) => (
+                        <Tag key={t}>{t}</Tag>
+                      ))}
+                    </div>
                   </div>
                 </div>
+              </div>
+            </article>
 
-                {/* Features Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-                    <Database className="w-8 h-8 text-blue-600" />
-                    <div>
-                      <h4 className="font-semibold text-blue-900">Gestión de Inventarios</h4>
-                      <p className="text-sm text-blue-700">Control por ubicaciones</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
-                    <BarChart3 className="w-8 h-8 text-green-600" />
-                    <div>
-                      <h4 className="font-semibold text-green-900">Reportes Avanzados</h4>
-                      <p className="text-sm text-green-700">Análisis y estadísticas</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-                    <Search className="w-8 h-8 text-purple-600" />
-                    <div>
-                      <h4 className="font-semibold text-purple-900">Verificación de Items</h4>
-                      <p className="text-sm text-purple-700">Búsqueda por código de barras</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
-                    <Users className="w-8 h-8 text-orange-600" />
-                    <div>
-                      <h4 className="font-semibold text-orange-900">Control de Usuarios</h4>
-                      <p className="text-sm text-orange-700">Roles y permisos</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg border border-teal-200">
-                    <FileText className="w-8 h-8 text-teal-600" />
-                    <div>
-                      <h4 className="font-semibold text-teal-900">Exportación</h4>
-                      <p className="text-sm text-teal-700">PDF y Excel</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200">
-                    <Smartphone className="w-8 h-8 text-red-600" />
-                    <div>
-                      <h4 className="font-semibold text-red-900">App Móvil</h4>
-                      <p className="text-sm text-red-700">React Native</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Technologies Used */}
+            {/* Project 2 — Finanzas Personales */}
+            <article className="overflow-hidden rounded-2xl border border-white/[0.08] bg-card">
+              <div className="flex flex-col justify-between gap-4 border-b border-white/[0.06] p-6 sm:flex-row sm:items-start">
                 <div>
-                  <h4 className="text-lg font-semibold mb-4 text-slate-900">Tecnologías Backend</h4>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200">Spring Boot</Badge>
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">Arquitectura Hexagonal</Badge>
-                    <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">Spring Security</Badge>
-                    <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">JWT</Badge>
-                    <Badge className="bg-cyan-100 text-cyan-800 hover:bg-cyan-200">PostgreSQL</Badge>
-                    <Badge className="bg-indigo-100 text-indigo-800 hover:bg-indigo-200">Flyway</Badge>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-2xl font-semibold text-zinc-50">Sistema de Finanzas Personales</h3>
+                    <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">Completado</Badge>
                   </div>
-                  <h4 className="text-lg font-semibold mb-4 text-slate-900">Tecnologías Frontend</h4>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
+                    Aplicación web completa en PHP con arquitectura MVC para la gestión integral de finanzas personales.
+                  </p>
+                </div>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0 border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06]"
+                >
+                  <a href="https://github.com/Gabriel3555/FinanzasPersonales" target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-1.5 h-4 w-4" />
+                    Código
+                  </a>
+                </Button>
+              </div>
+
+              <div className="p-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2002.54.45-iNJzchgampTWCrASOXcJ1hTZpE7Gkt.png"
+                    alt="Dashboard de Finanzas"
+                    caption="Dashboard con métricas y gráficos"
+                  />
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2002.55.04-5H9VO0iauKEpZBbxtYiGhTICkJIhm8.png"
+                    alt="Reportes Financieros"
+                    caption="Reportes con exportación a Excel, PDF y CSV"
+                  />
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2002.55.22-d4nGPv81sCkR62V23ekiDO9vUmkrnq.png"
+                    alt="Gestión de Categorías"
+                    caption="Categorías con filtros y paginación"
+                  />
+                </div>
+
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <Feature icon={Users} title="Gestión de Usuarios" desc="Registro y autenticación" />
+                  <Feature icon={Database} title="Base de Datos" desc="Diseño relacional completo" />
+                  <Feature icon={BarChart3} title="Reportes" desc="Análisis y visualización" />
+                  <Feature icon={Code} title="Arquitectura MVC" desc="Código organizado y escalable" />
+                  <Feature icon={Shield} title="Seguridad" desc="Validación y protección" />
+                  <Feature icon={FileText} title="Exportación" desc="Múltiples formatos" />
+                </div>
+
+                <div className="mt-8">
+                  <p className="mb-3 font-mono text-xs uppercase tracking-wide text-emerald-400">Diseño de base de datos</p>
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-09-08%20at%2003.06.02-z2QLxQVHmk7085g81Si5nzNG7BqAve.jpeg"
+                    alt="Diagrama de Base de Datos"
+                    caption="Esquema relacional: usuarios, cuentas, categorías, transacciones, presupuestos, movimientos y exportaciones"
+                  />
+                </div>
+
+                <div className="mt-8">
+                  <p className="mb-2 font-mono text-xs uppercase tracking-wide text-zinc-500">Stack</p>
                   <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">JavaScript</Badge>
-                    <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200">HTML5</Badge>
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">CSS3</Badge>
-                    <Badge className="bg-teal-100 text-teal-800 hover:bg-teal-200">Tailwind CSS</Badge>
-                    <Badge className="bg-red-100 text-red-800 hover:bg-red-200">React Native (Móvil)</Badge>
+                    {["PHP", "MySQL", "MVC", "JavaScript", "HTML5", "CSS3", "Chart.js", "Bootstrap"].map((t) => (
+                      <Tag key={t}>{t}</Tag>
+                    ))}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </article>
+
+            {/* Project 3 — Biblioteca */}
+            <article className="overflow-hidden rounded-2xl border border-white/[0.08] bg-card">
+              <div className="flex flex-col justify-between gap-4 border-b border-white/[0.06] p-6 sm:flex-row sm:items-start">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-2xl font-semibold text-zinc-50">Sistema de Biblioteca Municipal</h3>
+                    <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">Completado</Badge>
+                  </div>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
+                    Aplicación web con Jakarta EE 11 para la gestión integral de bibliotecas: catálogo de libros y
+                    control de préstamos.
+                  </p>
+                </div>
+                <div className="flex shrink-0 gap-2">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className="border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06]"
+                  >
+                    <a href="https://github.com/Gabriel3555/DuitamaBiblioteca" target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-1.5 h-4 w-4" />
+                      Código
+                    </a>
+                  </Button>
+                  <Button asChild size="sm" className="bg-emerald-400 text-emerald-950 hover:bg-emerald-300">
+                    <a href="https://duitamabiblioteca.onrender.com" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-1.5 h-4 w-4" />
+                      Demo
+                    </a>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2003.23.48-0icuuqmqs7nfZFkAOS2IHY159lagCx.png"
+                    alt="Homepage Biblioteca"
+                    caption="Acceso a gestión de libros y préstamos"
+                  />
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2003.24.30-iB2fGy7RBF1fvWaSk3LZOsU1FZw8vG.png"
+                    alt="Dashboard Biblioteca"
+                    caption="Dashboard con acciones rápidas"
+                  />
+                  <Frame
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2003.24.11-MZzyaXiTXjs6R95m6MbaNZfyWekpdp.png"
+                    alt="Catálogo de Libros"
+                    caption="Catálogo con filtros avanzados y exportación"
+                  />
+                </div>
+
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <Feature icon={BookOpen} title="Gestión de Libros" desc="CRUD completo del catálogo" />
+                  <Feature icon={Calendar} title="Control de Préstamos" desc="Registro y seguimiento" />
+                  <Feature icon={Search} title="Filtros Avanzados" desc="Por autor, título e ISBN" />
+                  <Feature icon={Users} title="Gestión de Usuarios" desc="Administración de lectores" />
+                  <Feature icon={FileText} title="Exportación" desc="Excel e impresión" />
+                  <Feature icon={Code} title="Jakarta EE 11" desc="Arquitectura empresarial" />
+                </div>
+
+                <div className="mt-8">
+                  <p className="mb-2 font-mono text-xs uppercase tracking-wide text-zinc-500">Stack</p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Jakarta EE 11",
+                      "Apache Tomcat 11",
+                      "Maven",
+                      "Docker",
+                      "WAR Deployment",
+                      "HTML5",
+                      "CSS3",
+                      "JavaScript",
+                    ].map((t) => (
+                      <Tag key={t}>{t}</Tag>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            {/* Project 4 — SGDIS */}
+            <article className="overflow-hidden rounded-2xl border border-white/[0.08] bg-card">
+              <div className="flex flex-col justify-between gap-4 border-b border-white/[0.06] p-6 sm:flex-row sm:items-start">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-2xl font-semibold text-zinc-50">SGDIS — Gestión de Inventario</h3>
+                    <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">Completado</Badge>
+                  </div>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
+                    Sistema para optimizar la gestión de inventario de SENA: reduce errores, mejora la eficiencia y
+                    garantiza transparencia en el control de recursos, con mejor seguimiento, informes y toma de
+                    decisiones.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  <Frame src="/images/sgdis-main-dashboard.png" alt="Dashboard SGDIS" caption="Dashboard con métricas clave del inventario" />
+                  <Frame src="/images/sgdis-inventories-dashboard.png" alt="Gestión de Inventarios" caption="Inventarios por ubicación con métricas" />
+                  <Frame src="/images/sgdis-reports-statistics.png" alt="Reportes y Estadísticas" caption="Reportes avanzados con filtros y exportación" />
+                  <Frame src="/images/sgdis-item-verification.png" alt="Verificación de Items" caption="Búsqueda por placa y código de barras" />
+                </div>
+
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <Feature icon={Database} title="Gestión de Inventarios" desc="Control por ubicaciones" />
+                  <Feature icon={BarChart3} title="Reportes Avanzados" desc="Análisis y estadísticas" />
+                  <Feature icon={Search} title="Verificación de Items" desc="Búsqueda por código de barras" />
+                  <Feature icon={Users} title="Control de Usuarios" desc="Roles y permisos" />
+                  <Feature icon={FileText} title="Exportación" desc="PDF y Excel" />
+                  <Feature icon={Smartphone} title="App Móvil" desc="React Native" />
+                </div>
+
+                <div className="mt-8 space-y-4">
+                  <div>
+                    <p className="mb-2 font-mono text-xs uppercase tracking-wide text-emerald-400">Backend</p>
+                    <div className="flex flex-wrap gap-2">
+                      {["Spring Boot", "Arquitectura Hexagonal", "Spring Security", "JWT", "PostgreSQL", "Flyway"].map(
+                        (t) => (
+                          <Tag key={t}>{t}</Tag>
+                        ),
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <p className="mb-2 font-mono text-xs uppercase tracking-wide text-zinc-500">Frontend</p>
+                    <div className="flex flex-wrap gap-2">
+                      {["JavaScript", "HTML5", "CSS3", "Tailwind CSS", "React Native"].map((t) => (
+                        <Tag key={t}>{t}</Tag>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Habilidades Técnicas</h2>
-            <p className="text-lg text-slate-600">Tecnologías y herramientas con las que trabajo</p>
-          </div>
+      {/* ----------------------------------------------------------- */}
+      {/* Skills */}
+      {/* ----------------------------------------------------------- */}
+      <section id="skills" className="mx-auto max-w-6xl px-4 py-24 sm:px-6 lg:px-8">
+        <SectionHeading
+          index="03"
+          kicker="Skills"
+          title="Stack técnico"
+          subtitle="Las herramientas con las que diseño, construyo y despliego."
+        />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Backend Development */}
-            <Card className="border-blue-200/50 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader className="bg-gradient-to-br from-blue-50 to-blue-100">
-                <CardTitle className="flex items-center gap-3 text-blue-900">
-                  <Code className="w-6 h-6" />
-                  Backend Development
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-3">
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-green-100 text-green-800">Java</Badge>
-                    <Badge className="bg-green-100 text-green-800">Spring Boot</Badge>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-blue-100 text-blue-800">Spring Security</Badge>
-                    <Badge className="bg-purple-100 text-purple-800">JWT</Badge>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-orange-100 text-orange-800">PHP</Badge>
-                    <Badge className="bg-red-100 text-red-800">Jakarta EE</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Database & Architecture */}
-            <Card className="border-green-200/50 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader className="bg-gradient-to-br from-green-50 to-green-100">
-                <CardTitle className="flex items-center gap-3 text-green-900">
-                  <Database className="w-6 h-6" />
-                  Base de Datos & Arquitectura
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-3">
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-blue-100 text-blue-800">PostgreSQL</Badge>
-                    <Badge className="bg-orange-100 text-orange-800">MySQL</Badge>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-purple-100 text-purple-800">Arquitectura Hexagonal</Badge>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-green-100 text-green-800">MVC</Badge>
-                    <Badge className="bg-indigo-100 text-indigo-800">Flyway</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Frontend & Mobile */}
-            <Card className="border-purple-200/50 shadow-lg hover:shadow-xl transition-shadow">
-              <CardHeader className="bg-gradient-to-br from-purple-50 to-purple-100">
-                <CardTitle className="flex items-center gap-3 text-purple-900">
-                  <Globe className="w-6 h-6" />
-                  Frontend & Mobile
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-3">
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-yellow-100 text-yellow-800">JavaScript</Badge>
-                    <Badge className="bg-orange-100 text-orange-800">HTML5</Badge>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-blue-100 text-blue-800">CSS3</Badge>
-                    <Badge className="bg-teal-100 text-teal-800">Bootstrap</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold mb-4">¿Interesado en colaborar?</h3>
-            <p className="text-slate-300 mb-6 text-pretty">
-              Estoy abierto a oportunidades de desarrollo backend con Java Spring Framework y proyectos desafiantes
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button
-                variant="outline"
-                asChild
-                className="border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white bg-transparent"
-              >
-                <a
-                  href="https://linkedin.com/in/gabriel-barrantes"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="no-underline"
-                >
-                  <Linkedin className="w-4 h-4 mr-2" />
-                  LinkedIn
-                </a>
-              </Button>
-              <Button
-                variant="outline"
-                asChild
-                className="border-slate-400 text-slate-400 hover:bg-slate-400 hover:text-slate-900 bg-transparent"
-              >
-                <a
-                  href="https://github.com/Gabriel3555"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="no-underline"
-                >
-                  <Github className="w-4 h-4 mr-2" />
-                  GitHub
-                </a>
-              </Button>
-              <Button
-                variant="outline"
-                asChild
-                className="border-green-400 text-green-400 hover:bg-green-400 hover:text-white bg-transparent"
-              >
-                <a href="https://wa.me/573154625105" target="_blank" rel="noopener noreferrer" className="no-underline">
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  WhatsApp
-                </a>
-              </Button>
-              <Button
-                variant="outline"
-                asChild
-                className="border-green-400 text-green-400 hover:bg-green-400 hover:text-white bg-transparent"
-              >
-                <a href="mailto:gabriel_barrantes@soy.sena.edu.co" className="no-underline">
-                  <Mail className="w-4 h-4 mr-2" />
-                  Contacto
-                </a>
-              </Button>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              icon: Code,
+              title: "Backend",
+              items: ["Java", "Spring Boot", "Spring Security", "Spring Data JPA", "Hibernate", "Python", "PHP", "Jakarta EE"],
+            },
+            {
+              icon: Database,
+              title: "Datos & Arquitectura",
+              items: ["PostgreSQL", "MySQL", "Arquitectura Hexagonal", "MVC", "Flyway"],
+            },
+            {
+              icon: Cloud,
+              title: "Cloud & DevSecOps",
+              items: ["Azure", "Azure DevOps", "ARO (OpenShift)", "Docker", "Linux", "Azure Key Vault", "GitOps", "CI/CD"],
+            },
+            {
+              icon: Shield,
+              title: "Herramientas & Calidad",
+              items: ["Git", "GitHub", "Maven", "Swagger", "SonarQube", "Trivy", "Tenable"],
+            },
+            {
+              icon: Globe,
+              title: "Frontend & Mobile",
+              items: ["JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Bootstrap", "React Native"],
+            },
+          ].map((group) => (
+            <div key={group.title} className="rounded-xl border border-white/[0.06] bg-card p-6">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-emerald-400/20 bg-emerald-400/10">
+                  <group.icon className="h-5 w-5 text-emerald-400" />
+                </span>
+                <h3 className="font-semibold text-zinc-50">{group.title}</h3>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {group.items.map((t) => (
+                  <Tag key={t}>{t}</Tag>
+                ))}
+              </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ----------------------------------------------------------- */}
+      {/* Contact / Footer */}
+      {/* ----------------------------------------------------------- */}
+      <footer id="contacto" className="relative overflow-hidden border-t border-white/[0.06]">
+        <div className="bg-dotgrid pointer-events-none absolute inset-0 opacity-60" />
+        <div className="pointer-events-none absolute -bottom-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-[120px]" />
+
+        <div className="relative mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8">
+          <p className="font-mono text-sm text-emerald-400">04 <span className="text-zinc-600">/</span> Contacto</p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+            ¿Construimos algo juntos?
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-zinc-400">
+            Abierto a oportunidades de desarrollo backend con Java &amp; Spring, infraestructura en la nube y DevSecOps,
+            y a proyectos que representen un reto.
+          </p>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <Button asChild className="bg-emerald-400 font-medium text-emerald-950 hover:bg-emerald-300">
+              <a href="mailto:gabrielbarrantes35@gmail.com">
+                <Mail className="mr-1.5 h-4 w-4" />
+                Escríbeme
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06]"
+            >
+              <a href="https://wa.me/573154625105" target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="mr-1.5 h-4 w-4" />
+                WhatsApp
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06]"
+            >
+              <a href="https://co.linkedin.com/in/barrantesv/es" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="mr-1.5 h-4 w-4" />
+                LinkedIn
+              </a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06]"
+            >
+              <a href="https://github.com/Gabriel3555" target="_blank" rel="noopener noreferrer">
+                <Github className="mr-1.5 h-4 w-4" />
+                GitHub
+              </a>
+            </Button>
           </div>
-          <div className="border-t border-slate-700 pt-8">
-            <p className="text-slate-400">
-              © 2025 Gabriel Barrantes. Desarrollado con pasión por la programación backend.
-            </p>
+
+          <div className="mt-16 flex flex-col items-center justify-between gap-3 border-t border-white/[0.06] pt-8 font-mono text-xs text-zinc-500 sm:flex-row">
+            <span>© 2026 Gabriel Barrantes</span>
+            <span className="flex items-center gap-1.5">
+              <Terminal className="h-3.5 w-3.5 text-emerald-400" />
+              built with Next.js
+            </span>
           </div>
         </div>
       </footer>
