@@ -7,9 +7,9 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Gabriel Barrantes - Backend & DevSecOps",
+  title: "Gabriel Barrantes - Soluciones de Software",
   description:
-    "Portfolio profesional de Gabriel Barrantes, Tecnólogo en Análisis y Desarrollo de Software. Backend con Java & Spring, arquitectura hexagonal, infraestructura en la nube (Azure, ARO/OpenShift) y prácticas DevSecOps.",
+    "Portafolio de Gabriel Barrantes. Soluciones de software para organizar procesos, automatizar tareas y convertir información en mejores decisiones.",
   generator: "Gabriel Barrantes",
   keywords: [
     "Gabriel Barrantes",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Gabriel Barrantes" }],
   openGraph: {
-    title: "Gabriel Barrantes - Backend & DevSecOps",
+    title: "Gabriel Barrantes - Soluciones de Software",
     description:
-      "Tecnólogo en Análisis y Desarrollo de Software: backend con Java & Spring, cloud (Azure/OpenShift) y DevSecOps.",
+      "Soluciones de software claras, seguras y confiables para organizar procesos y mejorar operaciones.",
     type: "website",
   },
 }

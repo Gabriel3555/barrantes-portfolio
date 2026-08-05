@@ -20,7 +20,6 @@ import {
   Globe,
   MessageCircle,
   ArrowUpRight,
-  MapPin,
   Terminal,
   Cloud,
   type LucideIcon,
@@ -88,8 +87,8 @@ function Frame({
         <Image
           src={src || "/placeholder.svg"}
           alt={alt}
-          width={portrait ? 320 : 640}
-          height={portrait ? 480 : 420}
+          width={portrait ? 488 : 640}
+          height={portrait ? 1002 : 420}
           className="w-full"
         />
       </div>
@@ -125,6 +124,104 @@ const navLinks = [
   { href: "#proyectos", label: "Proyectos" },
   { href: "#skills", label: "Skills" },
   { href: "#contacto", label: "Contacto" },
+]
+
+const usochicamochaMobileScreens = [
+  {
+    src: "/images/usochicamocha-mobile-main-menu.png",
+    alt: "Menú principal de la aplicación móvil de Usochicamocha",
+    caption: "Menú de inspecciones",
+  },
+  {
+    src: "/images/usochicamocha-mobile-machinery-menu.png",
+    alt: "Menú de maquinaria y sincronización de la aplicación móvil",
+    caption: "Formularios y sincronización",
+  },
+  {
+    src: "/images/usochicamocha-mobile-machinery-inspection-1.png",
+    alt: "Primera parte del formulario móvil de inspección de maquinaria",
+    caption: "Inspección de maquinaria · 1/3",
+  },
+  {
+    src: "/images/usochicamocha-mobile-machinery-inspection-2.png",
+    alt: "Segunda parte del formulario móvil de inspección de maquinaria",
+    caption: "Inspección de maquinaria · 2/3",
+  },
+  {
+    src: "/images/usochicamocha-mobile-machinery-inspection-3.png",
+    alt: "Tercera parte del formulario móvil de inspección de maquinaria",
+    caption: "Inspección de maquinaria · 3/3",
+  },
+  {
+    src: "/images/usochicamocha-mobile-unplanned-inspection-1.png",
+    alt: "Primera parte del formulario móvil de inspección imprevista",
+    caption: "Inspección imprevista · 1/3",
+  },
+  {
+    src: "/images/usochicamocha-mobile-unplanned-inspection-2.png",
+    alt: "Segunda parte del formulario móvil de inspección imprevista",
+    caption: "Inspección imprevista · 2/3",
+  },
+  {
+    src: "/images/usochicamocha-mobile-unplanned-inspection-3.png",
+    alt: "Tercera parte del formulario móvil de inspección imprevista",
+    caption: "Inspección imprevista · 3/3",
+  },
+  {
+    src: "/images/usochicamocha-mobile-vehicle-menu.png",
+    alt: "Menú de inspecciones vehiculares de la aplicación móvil",
+    caption: "Menú de inspección vehicular",
+  },
+  {
+    src: "/images/usochicamocha-mobile-vehicle-inspection-1.png",
+    alt: "Primera parte del formulario móvil de inspección vehicular",
+    caption: "Inspección vehicular · 1/6",
+  },
+  {
+    src: "/images/usochicamocha-mobile-vehicle-inspection-2.png",
+    alt: "Segunda parte del formulario móvil de inspección vehicular",
+    caption: "Inspección vehicular · 2/6",
+  },
+  {
+    src: "/images/usochicamocha-mobile-vehicle-inspection-3.png",
+    alt: "Tercera parte del formulario móvil de inspección vehicular",
+    caption: "Inspección vehicular · 3/6",
+  },
+  {
+    src: "/images/usochicamocha-mobile-vehicle-inspection-4.png",
+    alt: "Cuarta parte del formulario móvil de inspección vehicular",
+    caption: "Inspección vehicular · 4/6",
+  },
+  {
+    src: "/images/usochicamocha-mobile-vehicle-inspection-5.png",
+    alt: "Quinta parte del formulario móvil de inspección vehicular",
+    caption: "Inspección vehicular · 5/6",
+  },
+  {
+    src: "/images/usochicamocha-mobile-vehicle-inspection-6.png",
+    alt: "Sexta parte del formulario móvil de inspección vehicular",
+    caption: "Inspección vehicular · 6/6",
+  },
+  {
+    src: "/images/usochicamocha-mobile-motorcycle-inspection-1.png",
+    alt: "Primera parte del formulario móvil de inspección de motocicletas",
+    caption: "Inspección de motocicletas · 1/4",
+  },
+  {
+    src: "/images/usochicamocha-mobile-motorcycle-inspection-2.png",
+    alt: "Segunda parte del formulario móvil de inspección de motocicletas",
+    caption: "Inspección de motocicletas · 2/4",
+  },
+  {
+    src: "/images/usochicamocha-mobile-motorcycle-inspection-3.png",
+    alt: "Tercera parte del formulario móvil de inspección de motocicletas",
+    caption: "Inspección de motocicletas · 3/4",
+  },
+  {
+    src: "/images/usochicamocha-mobile-motorcycle-inspection-4.png",
+    alt: "Cuarta parte del formulario móvil de inspección de motocicletas",
+    caption: "Inspección de motocicletas · 4/4",
+  },
 ]
 
 export default function Portfolio() {
@@ -178,7 +275,7 @@ export default function Portfolio() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </span>
-                Disponible para proyectos
+                Disponible para nuevos proyectos
               </span>
 
               <h1 className="mt-6 text-5xl font-bold tracking-tight text-zinc-50 sm:text-6xl">
@@ -186,14 +283,15 @@ export default function Portfolio() {
               </h1>
 
               <p className="mt-4 font-mono text-lg text-zinc-400">
-                <span className="text-emerald-400">~/</span> backend &amp; devsecops
+                <span className="text-emerald-400">~/</span> software para operar mejor
                 <span className="animate-caret ml-0.5 text-emerald-400">_</span>
               </p>
 
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-zinc-400">
-                Tecnólogo en Análisis y Desarrollo de Software. Construyo backends robustos y escalables con{" "}
-                <span className="font-medium text-zinc-100">Java &amp; Spring</span> y opero infraestructura en la
-                nube aplicando arquitectura hexagonal, automatización y prácticas DevSecOps.
+                Ayudo a empresas y equipos a convertir procesos manuales o dispersos en{" "}
+                <span className="font-medium text-zinc-100">sistemas claros, seguros y confiables</span>. Me especializo
+                en soluciones digitales que conectan la información, automatizan tareas y acompañan el crecimiento de
+                la operación.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -202,7 +300,7 @@ export default function Portfolio() {
                   className="bg-emerald-400 font-medium text-emerald-950 hover:bg-emerald-300"
                 >
                   <a href="#proyectos">
-                    Ver proyectos
+                    Ver soluciones
                     <ArrowUpRight className="ml-1.5 h-4 w-4" />
                   </a>
                 </Button>
@@ -228,20 +326,14 @@ export default function Portfolio() {
                 </Button>
               </div>
 
-              <dl className="mt-12 grid max-w-md grid-cols-3 gap-6 border-t border-white/[0.06] pt-8">
+              <dl className="mt-12 grid max-w-sm grid-cols-2 gap-6 border-t border-white/[0.06] pt-8">
                 <div>
-                  <dt className="font-mono text-xs text-zinc-500">Foco</dt>
-                  <dd className="mt-1 text-sm font-medium text-zinc-200">Backend &amp; Cloud</dd>
+                  <dt className="font-mono text-xs text-zinc-500">Qué resuelvo</dt>
+                  <dd className="mt-1 text-sm font-medium text-zinc-200">Procesos operativos</dd>
                 </div>
                 <div>
-                  <dt className="font-mono text-xs text-zinc-500">Stack</dt>
-                  <dd className="mt-1 text-sm font-medium text-zinc-200">Spring Boot</dd>
-                </div>
-                <div>
-                  <dt className="flex items-center gap-1 font-mono text-xs text-zinc-500">Ubicación</dt>
-                  <dd className="mt-1 flex items-center gap-1 text-sm font-medium text-zinc-200">
-                    <MapPin className="h-3.5 w-3.5 text-emerald-400" /> Boyacá, CO
-                  </dd>
+                  <dt className="font-mono text-xs text-zinc-500">Qué entrego</dt>
+                  <dd className="mt-1 text-sm font-medium text-zinc-200">Software confiable</dd>
                 </div>
               </dl>
             </div>
@@ -259,7 +351,7 @@ export default function Portfolio() {
                 />
               </div>
               <div className="absolute -bottom-3 -right-3 rounded-lg border border-white/10 bg-zinc-900 px-3 py-2 font-mono text-xs text-zinc-300 shadow-xl">
-                <span className="text-emerald-400">$</span> spring boot run
+                <span className="text-emerald-400">✓</span> listo para producción
               </div>
             </div>
           </div>
@@ -273,8 +365,8 @@ export default function Portfolio() {
         <SectionHeading
           index="01"
           kicker="Experiencia"
-          title="Trayectoria"
-          subtitle="Dónde he aplicado y afilado mis habilidades como desarrollador de software."
+          title="Experiencia aplicada"
+          subtitle="Entornos donde he ayudado a mantener operaciones estables y a convertir necesidades reales en software."
         />
 
         <div className="relative space-y-10 border-l border-white/[0.08] pl-8">
@@ -295,11 +387,9 @@ export default function Portfolio() {
                 <span className="w-fit font-mono text-xs text-zinc-500">Dic 2025 — Jun 2026</span>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                Gestión integral de incidentes y cumplimiento de SLAs sobre aplicaciones en producción. Soporte a
-                pipelines CI/CD en Azure DevOps y despliegues GitOps sobre clústeres ARO (Azure RedHat OpenShift),
-                gestión de vulnerabilidades (Trivy, SonarQube, Tenable, Mendbolt), administración segura de identidades
-                y secretos con Azure Key Vault, automatización en Python y ejecución de planes de recuperación
-                tecnológica (PRT/DRP).
+                Ayudé a mantener aplicaciones en producción disponibles, seguras y dentro de los tiempos de atención
+                acordados. Participé en la resolución de incidentes, automatización de tareas, despliegues controlados,
+                gestión de vulnerabilidades y planes de recuperación para reducir riesgos operativos.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {["Azure DevOps", "ARO (OpenShift)", "GitOps", "DevSecOps", "Azure Key Vault", "Python", "CI/CD"].map(
@@ -325,9 +415,9 @@ export default function Portfolio() {
                 <span className="w-fit font-mono text-xs text-zinc-500">Jul 2024 — Nov 2025</span>
               </div>
               <p className="mt-4 text-sm leading-relaxed text-zinc-400">
-                Desarrollo de soluciones backend escalables con Java y el ecosistema Spring (Boot, MVC, Data JPA) bajo
-                arquitectura hexagonal. Diseño y exposición de APIs RESTful documentadas con Swagger, gestión y
-                optimización de datos en PostgreSQL, y despliegue contenerizado con Docker sobre servidores VPS.
+                Construí soluciones para organizaciones que necesitaban centralizar información, controlar procesos y
+                reducir trabajo manual. Me encargué del backend, la integración de datos, la seguridad y el despliegue,
+                dejando sistemas documentados y preparados para mantenerse y crecer.
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {["Spring Boot", "Arquitectura Hexagonal", "Spring Data JPA", "PostgreSQL", "Swagger", "Docker", "VPS"].map(
@@ -374,92 +464,134 @@ export default function Portfolio() {
           <SectionHeading
             index="02"
             kicker="Proyectos"
-            title="Trabajo seleccionado"
-            subtitle="Sistemas reales construidos de extremo a extremo, con foco en el backend."
+            title="Soluciones construidas"
+            subtitle="Sistemas reales creados para organizar operaciones, reducir errores y facilitar mejores decisiones."
           />
 
           <div className="space-y-8">
-            {/* Project 1 — TecnoParque */}
+            {/* Project 1 — Usochicamocha / TecnoParque */}
             <article className="overflow-hidden rounded-2xl border border-white/[0.08] bg-card">
               <div className="flex flex-col justify-between gap-4 border-b border-white/[0.06] p-6 sm:flex-row sm:items-start">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-2xl font-semibold text-zinc-50">Sistema de Gestión Industrial</h3>
+                    <h3 className="text-2xl font-semibold text-zinc-50">Sistema de Gestión de Maquinaria</h3>
                     <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">
-                      TecnoParque
+                      Usochicamocha
                     </Badge>
+                    <Badge className="border-white/10 bg-white/[0.04] font-mono text-zinc-300">TecnoParque SENA</Badge>
                     <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">Completado</Badge>
                   </div>
                   <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
-                    Proyecto de la Red TecnoParque SENA (Nodo Boyacá) con una empresa del sector agropecuario. Rol de
-                    desarrollador backend, implementando Spring Boot con arquitectura hexagonal.
+                    Solución creada para Usochicamocha que centraliza el estado, las inspecciones y el mantenimiento de
+                    maquinaria, vehículos y motocicletas. Permite detectar novedades, coordinar órdenes de trabajo y
+                    consultar la operación desde un solo lugar. La aplicación Android en Kotlin lleva las inspecciones al
+                    campo y sincroniza la información con el sistema web.
                   </p>
                 </div>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0 border-white/10 bg-white/[0.02] text-zinc-200 hover:bg-white/[0.06]"
+                >
+                  <a href="https://usochicamocha.co" target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-1.5 h-4 w-4" />
+                    Sitio de Usochicamocha
+                  </a>
+                </Button>
               </div>
 
               <div className="p-6">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   <Frame
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.25.58-MrNOEQQwQhukOIOSv7IEUkJHgKd119.png"
-                    alt="Gestión de Máquinas"
-                    caption="Gestión de maquinaria industrial"
+                    src="/images/usochicamocha-equipment-status.png"
+                    alt="Panel de control del estado de equipos de Usochicamocha"
+                    caption="Inspecciones y estado operativo de la maquinaria"
                   />
                   <Frame
-                    src="/images/equipment-status-panel.png"
-                    alt="Panel de Control"
-                    caption="Estado de equipos y métricas en tiempo real"
+                    src="/images/usochicamocha-create-work-order.png"
+                    alt="Creación de una orden de trabajo en Usochicamocha"
+                    caption="Creación y asignación de órdenes de trabajo"
                   />
                   <Frame
-                    src="/images/create-work-order-modal.png"
-                    alt="Crear Orden de Trabajo"
-                    caption="Creación de órdenes de trabajo"
+                    src="/images/usochicamocha-machinery-inventory.png"
+                    alt="Inventario de maquinaria de Usochicamocha"
+                    caption="Inventario de maquinaria, vehículos y motocicletas"
                   />
                   <Frame
-                    src="/images/user-management-page.png"
-                    alt="Gestión de Usuarios"
-                    caption="Usuarios con roles y permisos"
+                    src="/images/usochicamocha-work-orders.png"
+                    alt="Listado de órdenes de trabajo de Usochicamocha"
+                    caption="Seguimiento del ciclo de las órdenes de trabajo"
                   />
                   <Frame
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.48.58-1LBHpwLe7ttgmY4b6LuPMwqVwwYsFx.png"
-                    alt="Panel Móvil"
-                    caption="App móvil para auditorías técnicas"
-                    portrait
+                    src="/images/usochicamocha-execute-work-order.png"
+                    alt="Ejecución de una orden de trabajo de Usochicamocha"
+                    caption="Registro de tiempos, mano de obra y repuestos"
                   />
                   <Frame
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-09-08%20at%2004.49.13-tsMbS4RByno8uQ7qX1O3WErDHKkEMD.png"
-                    alt="Control de Equipos"
-                    caption="Evaluación técnica de equipos"
-                    portrait
+                    src="/images/usochicamocha-oil-management.png"
+                    alt="Gestión de aceites de Usochicamocha"
+                    caption="Control de aceites hidráulicos y de motor"
                   />
+                </div>
+
+                <div className="mt-10 border-t border-white/[0.06] pt-8">
+                  <p className="font-mono text-xs uppercase tracking-wide text-emerald-400">
+                    Aplicación móvil · Kotlin
+                  </p>
+                  <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
+                    Inspecciones de maquinaria, vehículos y motocicletas, con captura de evidencias y sincronización
+                    de datos desde campo.
+                  </p>
+                  <p className="mt-2 text-xs text-zinc-600">Desliza horizontalmente para recorrer las 19 pantallas.</p>
+                  <div
+                    className="-mx-2 mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-2 pb-4"
+                    role="region"
+                    aria-label="Galería de la aplicación móvil de Usochicamocha"
+                    tabIndex={0}
+                  >
+                    {usochicamochaMobileScreens.map((screen) => (
+                      <div key={screen.src} className="min-w-[15rem] snap-start sm:min-w-[16rem]">
+                        <Frame {...screen} portrait />
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  <Feature icon={Settings} title="Gestión de Maquinaria" desc="Control integral de equipos" />
-                  <Feature icon={Shield} title="Auditorías Técnicas" desc="Evaluación y seguimiento" />
-                  <Feature icon={Users} title="Gestión de Usuarios" desc="Roles y permisos" />
-                  <Feature icon={Smartphone} title="App Móvil" desc="Kotlin nativo" />
-                  <Feature icon={Globe} title="App Web" desc="Frontend en Svelte" />
-                  <Feature icon={Zap} title="Notificaciones" desc="Eventos en tiempo real" />
+                  <Feature icon={Settings} title="Monitoreo de Equipos" desc="Inspecciones y estado operativo" />
+                  <Feature icon={Database} title="Inventario de Flota" desc="Maquinaria, vehículos y motos" />
+                  <Feature icon={FileText} title="Órdenes de Trabajo" desc="Creación, asignación y seguimiento" />
+                  <Feature icon={Users} title="Ejecución de Mantenimiento" desc="Mano de obra, tiempos y repuestos" />
+                  <Feature icon={Zap} title="Alertas Preventivas" desc="Avisos oportunos para actuar antes" />
+                  <Feature icon={Smartphone} title="App Móvil Kotlin" desc="Inspecciones y sincronización en campo" />
                 </div>
 
-                <div className="mt-8 space-y-4">
-                  <div>
-                    <p className="mb-2 font-mono text-xs uppercase tracking-wide text-emerald-400">Backend · mi rol</p>
-                    <div className="flex flex-wrap gap-2">
-                      {["Spring Boot", "Arquitectura Hexagonal", "Spring Security", "JWT", "PostgreSQL", "Flux"].map(
-                        (t) => (
-                          <Tag key={t}>{t}</Tag>
-                        ),
-                      )}
-                    </div>
+                <div className="mt-8">
+                  <p className="mb-2 font-mono text-xs uppercase tracking-wide text-emerald-400">Backend · mi rol</p>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Java 17",
+                      "Spring Boot",
+                      "Arquitectura Hexagonal",
+                      "Spring Security",
+                      "JWT",
+                      "PostgreSQL",
+                      "Flyway",
+                      "WebSocket",
+                      "OpenAPI / Swagger",
+                      "Docker",
+                    ].map((t) => (
+                      <Tag key={t}>{t}</Tag>
+                    ))}
                   </div>
-                  <div>
-                    <p className="mb-2 font-mono text-xs uppercase tracking-wide text-zinc-500">Frontend · equipo</p>
-                    <div className="flex flex-wrap gap-2">
-                      {["Svelte (Web)", "Kotlin (Móvil)"].map((t) => (
-                        <Tag key={t}>{t}</Tag>
-                      ))}
-                    </div>
+                </div>
+                <div className="mt-4">
+                  <p className="mb-2 font-mono text-xs uppercase tracking-wide text-zinc-500">Aplicación móvil</p>
+                  <div className="flex flex-wrap gap-2">
+                    {["Kotlin", "Android", "Sincronización de datos", "Captura de evidencias"].map((t) => (
+                      <Tag key={t}>{t}</Tag>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -474,7 +606,8 @@ export default function Portfolio() {
                     <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">Completado</Badge>
                   </div>
                   <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
-                    Aplicación web completa en PHP con arquitectura MVC para la gestión integral de finanzas personales.
+                    Centraliza ingresos, gastos, presupuestos y cuentas para ofrecer una visión clara de las finanzas y
+                    facilitar decisiones con información actualizada.
                   </p>
                 </div>
                 <Button
@@ -510,12 +643,12 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  <Feature icon={Users} title="Gestión de Usuarios" desc="Registro y autenticación" />
-                  <Feature icon={Database} title="Base de Datos" desc="Diseño relacional completo" />
-                  <Feature icon={BarChart3} title="Reportes" desc="Análisis y visualización" />
-                  <Feature icon={Code} title="Arquitectura MVC" desc="Código organizado y escalable" />
-                  <Feature icon={Shield} title="Seguridad" desc="Validación y protección" />
-                  <Feature icon={FileText} title="Exportación" desc="Múltiples formatos" />
+                  <Feature icon={Users} title="Acceso Personal" desc="Información separada por usuario" />
+                  <Feature icon={Database} title="Información Centralizada" desc="Cuentas y movimientos en un solo lugar" />
+                  <Feature icon={BarChart3} title="Decisiones con Contexto" desc="Paneles, reportes y tendencias" />
+                  <Feature icon={Code} title="Base para Crecer" desc="Estructura ordenada y mantenible" />
+                  <Feature icon={Shield} title="Acceso Protegido" desc="Validación y protección de datos" />
+                  <Feature icon={FileText} title="Información Portable" desc="Exportación en varios formatos" />
                 </div>
 
                 <div className="mt-8">
@@ -547,8 +680,8 @@ export default function Portfolio() {
                     <Badge className="border-emerald-400/20 bg-emerald-400/10 font-mono text-emerald-300">Completado</Badge>
                   </div>
                   <p className="mt-2 max-w-2xl text-sm leading-relaxed text-zinc-400">
-                    Aplicación web con Jakarta EE 11 para la gestión integral de bibliotecas: catálogo de libros y
-                    control de préstamos.
+                    Organiza el catálogo, los lectores y los préstamos en un solo sistema para agilizar la atención,
+                    encontrar libros rápidamente y mantener control sobre fechas y devoluciones.
                   </p>
                 </div>
                 <div className="flex shrink-0 gap-2">
@@ -592,12 +725,12 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  <Feature icon={BookOpen} title="Gestión de Libros" desc="CRUD completo del catálogo" />
-                  <Feature icon={Calendar} title="Control de Préstamos" desc="Registro y seguimiento" />
-                  <Feature icon={Search} title="Filtros Avanzados" desc="Por autor, título e ISBN" />
-                  <Feature icon={Users} title="Gestión de Usuarios" desc="Administración de lectores" />
-                  <Feature icon={FileText} title="Exportación" desc="Excel e impresión" />
-                  <Feature icon={Code} title="Jakarta EE 11" desc="Arquitectura empresarial" />
+                  <Feature icon={BookOpen} title="Catálogo Actualizado" desc="Libros disponibles y organizados" />
+                  <Feature icon={Calendar} title="Préstamos Bajo Control" desc="Fechas, entregas y devoluciones" />
+                  <Feature icon={Search} title="Búsqueda Rápida" desc="Por autor, título o ISBN" />
+                  <Feature icon={Users} title="Lectores Organizados" desc="Registro e historial de usuarios" />
+                  <Feature icon={FileText} title="Información Portable" desc="Exportación e impresión" />
+                  <Feature icon={Code} title="Operación Centralizada" desc="Libros, usuarios y préstamos" />
                 </div>
 
                 <div className="mt-8">
@@ -645,12 +778,12 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  <Feature icon={Database} title="Gestión de Inventarios" desc="Control por ubicaciones" />
-                  <Feature icon={BarChart3} title="Reportes Avanzados" desc="Análisis y estadísticas" />
-                  <Feature icon={Search} title="Verificación de Items" desc="Búsqueda por código de barras" />
-                  <Feature icon={Users} title="Control de Usuarios" desc="Roles y permisos" />
-                  <Feature icon={FileText} title="Exportación" desc="PDF y Excel" />
-                  <Feature icon={Smartphone} title="App Móvil" desc="React Native" />
+                  <Feature icon={Database} title="Inventario Visible" desc="Control por ubicación" />
+                  <Feature icon={BarChart3} title="Información para Decidir" desc="Indicadores y reportes" />
+                  <Feature icon={Search} title="Verificación Rápida" desc="Consulta por placa o código" />
+                  <Feature icon={Users} title="Accesos Controlados" desc="Permisos según responsabilidad" />
+                  <Feature icon={FileText} title="Datos para Compartir" desc="Exportación en PDF y Excel" />
+                  <Feature icon={Smartphone} title="Trabajo en Campo" desc="Inventarios desde el móvil" />
                 </div>
 
                 <div className="mt-8 space-y-4">
@@ -745,18 +878,18 @@ export default function Portfolio() {
         <div className="relative mx-auto max-w-3xl px-4 py-24 text-center sm:px-6 lg:px-8">
           <p className="font-mono text-sm text-emerald-400">04 <span className="text-zinc-600">/</span> Contacto</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
-            ¿Construimos algo juntos?
+            ¿Hay un proceso que podría funcionar mejor?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-zinc-400">
-            Abierto a oportunidades de desarrollo backend con Java &amp; Spring, infraestructura en la nube y DevSecOps,
-            y a proyectos que representen un reto.
+            Cuéntame qué necesitas organizar, automatizar o mejorar. Puedo ayudarte a convertirlo en una solución
+            clara, segura y preparada para acompañar el crecimiento de tu operación.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild className="bg-emerald-400 font-medium text-emerald-950 hover:bg-emerald-300">
               <a href="mailto:gabrielbarrantes35@gmail.com">
                 <Mail className="mr-1.5 h-4 w-4" />
-                Escríbeme
+                Cuéntame tu proyecto
               </a>
             </Button>
             <Button
